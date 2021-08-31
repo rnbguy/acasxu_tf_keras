@@ -63,12 +63,13 @@ def read_acasxu_weights(filepath):
 
     return weights
 
-
 if __name__ == "__main__":
     for nnet_path in glob.glob("acasxu_nnet/*.nnet"):
+        new_netname=os.path.basename(nnet_path).replace('nnet','h5')
         tf_keras_path = os.path.join(
             "acasxu_tf_keras",
-            f'{os.path.basename(nnet_path)[:-4]}.h5'
+            new_netname
         )
         acasxu_tf_keras = build_dnn(read_acasxu_weights(nnet_path))
         tf.keras.models.save_model(acasxu_tf_keras, tf_keras_path)
+
